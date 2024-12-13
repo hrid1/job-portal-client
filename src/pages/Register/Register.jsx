@@ -1,6 +1,25 @@
 import Lottie from "lottie-react";
 import registerAnimation from "../../assets/lottie/register.json";
+import { useState } from "react";
 const Register = () => {
+  const [formData, setFormData] = useState({
+    // username: "",
+    // emial: "",
+    // password: ""
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <div>
       <section>
@@ -11,7 +30,10 @@ const Register = () => {
           </div>
 
           {/* Form */}
-          <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto  w-10/12 lg:w-2/5 md:3/5">
+          <form
+            onSubmit={handleRegister}
+            className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto  w-10/12 lg:w-2/5 md:3/5"
+          >
             <div className="w-full p-8 ">
               <h2 className="text-2xl font-semibold text-gray-700 text-center">
                 Brand
@@ -57,11 +79,24 @@ const Register = () => {
               </div>
               <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
+                  User Name
+                </label>
+                <input
+                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                  type="username"
+                  name="username"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   Email Address
                 </label>
                 <input
                   className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
                   type="email"
+                  name="email"
+                  onChange={handleChange}
                 />
               </div>
               <div className="mt-4">
@@ -75,7 +110,9 @@ const Register = () => {
                 </div>
                 <input
                   className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                  name="password"
                   type="password"
+                  onChange={handleChange}
                 />
               </div>
               <div className="mt-8">
@@ -91,7 +128,7 @@ const Register = () => {
                 <span className="border-b w-1/5 md:w-1/4"></span>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </section>
     </div>

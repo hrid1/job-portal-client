@@ -1,11 +1,40 @@
+import Lottie from "lottie-react";
+import loginAnimation from "../../assets/lottie/loading.json";
+import { useState } from "react";
 
 const Login = () => {
-    return (
-        <div>
-          <div className="py-16">
-          <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
-          
-            <div className="w-full p-8 lg:w-1/2">
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+  return (
+    <div>
+      <section>
+        <div className="py-16 md:px-4 flex flex-col md:flex-row items-center justify-center">
+          {/* animation */}
+          <div className="w-4/5 md:2/5 lg:w-1/2 ">
+            <Lottie animationData={loginAnimation}> </Lottie>
+          </div>
+
+          {/* Form */}
+          <form
+            onSubmit={handleLogin}
+            className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto  w-10/12 lg:w-2/5 md:3/5"
+          >
+            <div className="w-full p-8 ">
               <h2 className="text-2xl font-semibold text-gray-700 text-center">
                 Brand
               </h2>
@@ -48,6 +77,7 @@ const Login = () => {
                 </a>
                 <span className="border-b w-1/5 lg:w-1/4"></span>
               </div>
+
               <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Email Address
@@ -55,6 +85,8 @@ const Login = () => {
                 <input
                   className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
                   type="email"
+                  name="email"
+                  onChange={handleChange}
                 />
               </div>
               <div className="mt-4">
@@ -68,7 +100,9 @@ const Login = () => {
                 </div>
                 <input
                   className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                  name="password"
                   type="password"
+                  onChange={handleChange}
                 />
               </div>
               <div className="mt-8">
@@ -84,10 +118,11 @@ const Login = () => {
                 <span className="border-b w-1/5 md:w-1/4"></span>
               </div>
             </div>
-          </div>
+          </form>
         </div>
-        </div>
-    );
+      </section>
+    </div>
+  );
 };
 
 export default Login;
