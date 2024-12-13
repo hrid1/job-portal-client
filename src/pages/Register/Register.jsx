@@ -1,7 +1,13 @@
 import Lottie from "lottie-react";
 import registerAnimation from "../../assets/lottie/register.json";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+  console.log(createUser);
+
   const [formData, setFormData] = useState({
     // username: "",
     // emial: "",
@@ -17,7 +23,23 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
+    const { email, password } = formData;
+    console.log(email, password);
+    createUser(email, password) // Pass email and password in the correct order
+      .then((result) => {
+        // console.log(result.user);
+        toast.success("Welcome To Job-Portal", {
+          position: "top-center",
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("There is an Error!", {
+          position: "top-center",
+          theme:"dark"
+        })
+      });
   };
 
   return (
@@ -117,14 +139,14 @@ const Register = () => {
               </div>
               <div className="mt-8">
                 <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">
-                  Login
+                  Sign Up
                 </button>
               </div>
               <div className="mt-4 flex items-center justify-between">
                 <span className="border-b w-1/5 md:w-1/4"></span>
-                <a href="#" className="text-xs text-gray-500 uppercase">
-                  or sign up
-                </a>
+                <Link to="/login" className="text-xs text-gray-500 uppercase">
+                  or Log In
+                </Link>
                 <span className="border-b w-1/5 md:w-1/4"></span>
               </div>
             </div>

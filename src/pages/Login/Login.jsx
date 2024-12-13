@@ -1,8 +1,13 @@
 import Lottie from "lottie-react";
 import loginAnimation from "../../assets/lottie/loading.json";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { loginUser } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,7 +23,20 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(formData);
+    const { email, password } = formData;
+    // console.log(formData);
+    loginUser(email, password)
+      .then((result) => {
+        toast.success("Welcome Back! ", {
+          position: "top-center",
+        });
+      })
+      .catch((error) => {
+        toast.error("There is some Issue!", {
+          position: "top-center",
+        });
+        console.log(error);
+      });
   };
   return (
     <div>
@@ -112,9 +130,12 @@ const Login = () => {
               </div>
               <div className="mt-4 flex items-center justify-between">
                 <span className="border-b w-1/5 md:w-1/4"></span>
-                <a href="#" className="text-xs text-gray-500 uppercase">
+                <Link
+                  to="/register"
+                  className="text-xs text-gray-500 uppercase"
+                >
                   or sign up
-                </a>
+                </Link>
                 <span className="border-b w-1/5 md:w-1/4"></span>
               </div>
             </div>
