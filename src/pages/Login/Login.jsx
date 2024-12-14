@@ -1,12 +1,12 @@
 import Lottie from "lottie-react";
-import loginAnimation from "../../assets/lottie/loading.json";
+import loginAnimation from "../../assets/lottie/login.json";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, loginWithGoogle } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -38,6 +38,16 @@ const Login = () => {
         console.log(error);
       });
   };
+
+  const handleGoogleLogin = () => {
+    loginWithGoogle()
+      .then((result) => {
+        toast.success("Welcome! Login Successful.");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <div>
       <section>
@@ -50,16 +60,17 @@ const Login = () => {
           {/* Form */}
           <form
             onSubmit={handleLogin}
-            className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto  w-10/12 lg:w-2/5 md:3/5"
+            className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto  w-10/12 lg:w-2/5 md:3/5 "
           >
             <div className="w-full p-8 ">
               <h2 className="text-2xl font-semibold text-gray-700 text-center">
                 Brand
               </h2>
               <p className="text-xl text-gray-600 text-center">Welcome back!</p>
-              <a
-                href="#"
-                className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="w-full flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
               >
                 <div className="px-4 py-3">
                   <svg className="h-6 w-6" viewBox="0 0 40 40">
@@ -81,10 +92,10 @@ const Login = () => {
                     />
                   </svg>
                 </div>
-                <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
+                <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold ">
                   Sign in with Google
                 </h1>
-              </a>
+              </button>
               <div className="mt-4 flex items-center justify-between">
                 <span className="border-b w-1/5 lg:w-1/4"></span>
                 <a
