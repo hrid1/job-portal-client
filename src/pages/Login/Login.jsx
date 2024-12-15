@@ -1,12 +1,16 @@
 import Lottie from "lottie-react";
 import loginAnimation from "../../assets/lottie/login.json";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const { loginUser, loginWithGoogle } = useContext(AuthContext);
+  const locaiton = useLocation();
+  const navigate = useNavigate();
+  const from = locaiton?.state || '/';
+
 
   const [formData, setFormData] = useState({
     email: "",
@@ -30,6 +34,7 @@ const Login = () => {
         toast.success("Welcome Back! ", {
           position: "top-center",
         });
+        navigate(from)
       })
       .catch((error) => {
         toast.error("There is some Issue!", {
@@ -43,11 +48,13 @@ const Login = () => {
     loginWithGoogle()
       .then((result) => {
         toast.success("Welcome! Login Successful.");
+        navigate(from)
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
+  
   return (
     <div>
       <section>

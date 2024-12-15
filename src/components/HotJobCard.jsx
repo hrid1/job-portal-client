@@ -1,5 +1,6 @@
 import { BsBriefcase, BsClock, BsLightningFill } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const HotJobCard = ({ job }) => {
   return (
@@ -58,14 +59,15 @@ const HotJobCard = ({ job }) => {
       <div className="flex items-center justify-between">
         {/* Hourly Rate */}
         <p className="text-xl font-bold text-blue-600 mb-3">
-          ${job?.hourlyRate || "500"}/<span className="text-sm">Hour</span>
+          ${job?.salaryRange?.max || "500"}/<span className="text-sm">Month</span>
         </p>
 
         {/* Apply Now Button */}
         <div className="text-center">
-          <button className="w-full px-4 py-2 rounded-md bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm">
+          <Link to={`job/${job._id}`} className="w-full px-4 py-2 rounded-md bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm">
             Apply Now
-          </button>
+          </Link>
+          
         </div>
       </div>
     </div>
