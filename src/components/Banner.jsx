@@ -53,14 +53,14 @@ const Banner = () => {
               alt=""
               animate={{ y: [35, 100, 35] }}
               transition={{ duration: 10, repeat: Infinity }}
-              className="w-64 rounded-t-[36px] rounded-br-[36px] border-l-[5px] border-b-[5px] border-blue-500 shadow-xl"
+              className="w-56 md:w-64 rounded-t-[36px] rounded-br-[36px] border-l-[5px] border-b-[5px] border-blue-500 shadow-xl"
             />
             <motion.img
               src={team2}
               alt=""
               animate={{ x: [125, 190, 125] }}
-              transition={{ duration: 10, repeat: Infinity, delay: 10 }}
-              className="w-64 rounded-t-[36px] rounded-br-[36px] border-l-[6px] border-b-[6px] border-blue-500 shadow-xl"
+              transition={{ duration: 10, repeat: Infinity, delay: 5 }}
+              className="w-56 md:w-64 rounded-t-[36px] rounded-br-[36px] border-l-[6px] border-b-[6px] border-blue-500 shadow-xl"
             />
           </div>
         </div>
