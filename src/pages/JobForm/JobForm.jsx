@@ -1,5 +1,3 @@
-import React from "react";
-
 function JobForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,7 +76,7 @@ function JobForm() {
 
         {/* salary range */}
         <div>
-        <label className="block font-medium">Salary Range</label>
+          <label className="block font-medium">Salary Range</label>
           <div className="flex gap-4">
             {/* min */}
             <input
