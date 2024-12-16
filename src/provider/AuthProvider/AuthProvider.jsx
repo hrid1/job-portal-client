@@ -26,8 +26,8 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubsribe = onAuthStateChanged(auth, (curUser) => {
-      setUser(curUser);
       setLoading(false);
+      setUser(curUser);
     });
 
     return () => unSubsribe();
@@ -49,11 +49,10 @@ const AuthProvider = ({ children }) => {
     loginWithGoogle,
     user,
     logOut,
+    loading,
   };
   return (
-    <AuthContext.Provider value={authInfo}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 

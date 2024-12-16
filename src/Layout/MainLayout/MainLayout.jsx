@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div className="">
       <Navbar />
-      <div className="max-w-7xl mx-auto min-h-[calc(100vh-420px)]">
+      <div className="container mx-auto min-h-[calc(100vh-420px)]">
         <Outlet></Outlet>
         <ScrollRestoration />
       </div>

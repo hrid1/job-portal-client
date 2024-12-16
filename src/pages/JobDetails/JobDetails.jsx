@@ -1,10 +1,12 @@
 import React from "react";
 import { FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
 import { BsBriefcase, BsCalendar, BsCurrencyDollar } from "react-icons/bs";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 const JobDetails = () => {
   const job = useLoaderData();
+  const navigate = useNavigate();
+
   return (
     <div className="max-w-4xl md:mx-auto p-6 bg-base-200 shadow-lg border border-gray-700 rounded-md my-6 mx-2 ">
       {/* Company Header */}
@@ -108,6 +110,14 @@ const JobDetails = () => {
           </p>
         </div>
       </div>
+      {/* apply button */}
+
+      <button
+        onClick={() => navigate(`/jobApply/${job._id}`)}
+        className="btn btn-primary w-1/2 mx-auto block mt-4"
+      >
+        Apply Now
+      </button>
     </div>
   );
 };

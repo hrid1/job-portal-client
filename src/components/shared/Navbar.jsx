@@ -7,13 +7,12 @@ import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-
   const [isOpen, setIsOpen] = useState(false);
+
   const navLinks = [
     { id: 1, name: "Home", path: "/" },
-    { id: 2, name: "About", path: "/about" },
-    { id: 3, name: "Services", path: "/services" },
-    { id: 4, name: "Portfolio", path: "/portfolio" },
+    { id: 2, name: "Jobs", path: "/jobs" },
+    { id: 4, name: "Applications", path: "/my-application" },
     { id: 5, name: "Contact", path: "/contact" },
   ];
 
@@ -26,23 +25,37 @@ const Navbar = () => {
     console.log(logOut);
   };
 
+  // const handleLogout = async () => {
+  //   try {
+  //     await logOut();
+  //     toast.warning("Sign out Successful!", {
+  //       position: "top-center",
+  //     });
+  //   } catch (error) {
+  //     toast.error("Failed to sign out!", {
+  //       position: "top-center",
+  //     });
+  //   }
+  // };
+
   return (
     <nav className="bg-white border-gray-200 py-3 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
-        <a href="#" className="flex items-center">
-          {/* <img src="https://www.svgrepo.com/show/499962/music.svg" className="h-6 mr-3 sm:h-9" alt="Landwind Logo"> */}
+        <Link to="/" className="flex items-center">
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
             Landwind
           </span>
-        </a>
+        </Link>
         <div className="flex items-center lg:order-2">
-          <div className=" space-x-2">
+          <div className="space-x-2">
             {user ? (
-              <div className="flex items-center justify-center gap-2">
-                Hi, {user?.displayName}
+              <div className="flex items-center gap-4">
+                <span className="text-gray-800 dark:text-gray-200">
+                  Hi, {user?.displayName}
+                </span>
                 <button
                   onClick={handleLogout}
-                  className="text-white bg-purple-700 hover:bg-purple-800 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700  "
+                  className="text-white bg-purple-700 hover:bg-purple-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700"
                 >
                   Logout
                 </button>
@@ -51,13 +64,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="Login"
-                  className="text-white bg-purple-700 hover:bg-purple-800  focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800"
+                  className="text-white bg-purple-700 hover:bg-purple-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700"
                 >
                   Login
                 </Link>
                 <Link
                   to="Register"
-                  className="text-white bg-purple-800 hover:bg-purple-800  focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800"
+                  className="text-white bg-purple-800 hover:bg-purple-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700"
                 >
                   Register
                 </Link>
@@ -66,14 +79,16 @@ const Navbar = () => {
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            data-collapse-toggle="mobile-menu-2"
-            type="button"
-            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="mobile-menu-2"
-            aria-expanded="true"
+            aria-expanded={isOpen}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           >
-            <span className="sr-only">Open main menu</span>
-            <span className=" transition-transform duration-300 ease-in-out">
+            <span
+              className={`transition-transform duration-300 ease-in-out ${
+                isOpen ? "rotate-180" : "rotate-0"
+              }`}
+            >
               {isOpen ? (
                 <IoClose className="text-2xl transform scale-110" />
               ) : (
@@ -89,18 +104,22 @@ const Navbar = () => {
           id="mobile-menu-2"
         >
           <ul
-            className={`flex flex-col  mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 ${
-              isOpen ? "bg-gray-900 absolute w-full right-0 mt-3 px-2" : ""
+            className={`flex flex-col lg:flex-row lg:space-x-4 mt-4 lg:mt-0 font-medium ${
+              isOpen ? "absolute right-0 top-full bg-gray-800 w-full px-2" : ""
             }`}
           >
             {navLinks.map((link) => (
               <li
-                className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 lg:dark:hover:bg-transparent dark:border-gray-700"
                 key={link.id}
               >
                 <NavLink
                   className={({ isActive }) =>
-                    isActive ? " underline-offset-2 text-white" : ""
+                    `block py-2 pl-3 pr-4 ${
+                      isActive
+                        ? "text-purple-700 font-bold dark:text-white"
+                        : "text-gray-700 dark:text-gray-400"
+                    }`
                   }
                   to={link.path}
                 >
