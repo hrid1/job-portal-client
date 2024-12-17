@@ -7,7 +7,7 @@ const HotJobs = () => {
   useEffect(() => {
     fetch("http://localhost:5000/jobs")
       .then((res) => res.json())
-      .then((data) => setJobs(data));
+      .then((data) => setJobs(data.reverse().slice(0, 8)));
   }, []);
 
   return (

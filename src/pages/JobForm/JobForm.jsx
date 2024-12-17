@@ -1,11 +1,41 @@
+import Swal from "sweetalert2";
+
 function JobForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
 
-    const data = Object.fromEntries(formData.entries());
-    console.log("Submitted Form Data:", data);
+    const initialData = Object.fromEntries(formData.entries());
+    // console.log("Submitted Form Data:", data);
+    const { salaryMin, salaryMax, currency, ...newJob } = initialData;
+    newJob.salaryRange = { salaryMin, salaryMax, currency };
+    newJob.requirements = newJob.requirements.split("\n");
+    newJob.responsibilities = newJob.responsibilities.split("\n");
+
+    console.log(newJob); //and send to server
+
+    fetch("http://localhost:5000/jobs", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newJob),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            background: "#2d2d2d", // Dark background
+            color: "#ffffff", // Light text color
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        }
+      });
   };
 
   return (
@@ -75,7 +105,7 @@ function JobForm() {
         </div>
 
         {/* salary range */}
-        <div>
+        <div className="mb-4">
           <label className="block font-medium">Salary Range</label>
           <div className="flex gap-4">
             {/* min */}
@@ -142,6 +172,7 @@ function JobForm() {
           />
         </div>
 
+        {/* company name */}
         <div className="mb-4">
           <label htmlFor="company" className="block font-medium">
             Company
@@ -152,6 +183,68 @@ function JobForm() {
             id="company"
             placeholder="Favorite IT"
             className="w-full border px-3 py-2 rounded-md"
+          />
+        </div>
+        {/* Job Requirements */}
+        <div className="mb-4">
+          <label htmlFor="requirements" className="block font-medium">
+            Job Reqirements
+          </label>
+          <textarea
+            className="w-full border px-3 py-2 rounded-md"
+            name="requirements"
+            id="reqirements"
+            placeholder="Eash Req. should be single line"
+          ></textarea>
+        </div>
+        {/* Job Responsibilites */}
+        <div className="mb-4">
+          <label htmlFor="responsibilities" className="block font-medium">
+            Job Responsibilities
+          </label>
+          <textarea
+            className="w-full border px-3 py-2 rounded-md"
+            name="responsibilities"
+            id="responsibilities"
+            placeholder="Eash Responsibilities should be single line"
+          ></textarea>
+        </div>
+        {/* hr info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label className="block font-medium" htmlFor="hr_name">
+              Hr Name
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded-md"
+              type="text"
+              name="hr_name"
+              id="hr_name"
+              placeholder="hr"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block font-medium" htmlFor="hr_email">
+              Hr Email
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded-md"
+              type="text"
+              name="hr_email"
+              id="hr_email"
+              placeholder="hr@gmail.com"
+            />
+          </div>
+        </div>
+        <div className="mb-4">
+          <label className="font-medium block" htmlFor="company_logo">
+            Company Logo URL
+          </label>
+          <input
+            name="company_logo"
+            className="px-3 py-2 rounded-md w-full"
+            placeholder="Enter Logo URL"
+            type="text"
           />
         </div>
 

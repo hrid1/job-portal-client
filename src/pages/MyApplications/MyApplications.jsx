@@ -33,7 +33,6 @@ const MyApplications = () => {
               <th>SN.</th>
               <th>Name</th>
               <th>Job</th>
-
               <th>Delete</th>
             </tr>
           </thead>

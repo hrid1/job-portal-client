@@ -1,10 +1,12 @@
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const JobApply = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({});
   //   handle input Change
@@ -30,7 +32,20 @@ const JobApply = () => {
       body: JSON.stringify(jobApplication),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "Jop Application Succeessfull.",
+            background: "#2d2d2d", // Dark background
+            color: "#ffffff", // Light text color
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          navigate('/my-application')
+        }
+      });
   };
 
   return (

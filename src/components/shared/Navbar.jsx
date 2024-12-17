@@ -12,8 +12,10 @@ const Navbar = () => {
   const navLinks = [
     { id: 1, name: "Home", path: "/" },
     { id: 2, name: "Jobs", path: "/jobs" },
-    { id: 4, name: "Applications", path: "/my-application" },
-    { id: 5, name: "Contact", path: "/contact" },
+    { id: 3, name: "Job Form", path: "/jobForm" },
+    { id: 4, name: "My Jobs", path: "/myAddedJobs" },
+    { id: 5, name: "Applications", path: "/my-application" },
+    // { id: 5, name: "Contact", path: "/contact" },
   ];
 
   const handleLogout = () => {
@@ -39,7 +41,7 @@ const Navbar = () => {
   // };
 
   return (
-    <nav className="bg-white border-gray-200 py-3 dark:bg-gray-900">
+    <nav className="bg-white border-gray-200 py-3 dark:bg-gray-950">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
         <Link to="/" className="flex items-center">
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
@@ -104,7 +106,7 @@ const Navbar = () => {
           id="mobile-menu-2"
         >
           <ul
-            className={`flex flex-col lg:flex-row lg:space-x-4 mt-4 lg:mt-0 font-medium ${
+            className={`flex flex-col lg:flex-row  mt-4 lg:mt-0 font-medium ${
               isOpen ? "absolute right-0 top-full bg-gray-800 w-full px-2" : ""
             }`}
           >
